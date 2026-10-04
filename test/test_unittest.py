@@ -14,7 +14,7 @@ class TestCalculator(unittest.TestCase):
     def test_fun1(self):
         self.assertEqual(calculator.fun1(2, 3), 5)
         self.assertEqual(calculator.fun1(5, 0), 5)
-        
+
         self.assertEqual(calculator.fun1(-1, 1), 0)
         self.assertEqual(calculator.fun1(-1, -1), -2)
 
@@ -35,6 +35,34 @@ class TestCalculator(unittest.TestCase):
         self.assertEqual(calculator.fun4(5, 0, -1), 4)
         self.assertEqual(calculator.fun4(-1, -1, -1), -3)
         self.assertEqual(calculator.fun4(-1, -1, 100), 98)
+
+    def test_fun4_invalid_input(self):
+        with self.assertRaises(ValueError):
+            calculator.fun4(1, 2, "3")
+
+    def test_fun5(self):
+        self.assertEqual(calculator.fun5(10, 4), 2.5)
+        self.assertEqual(calculator.fun5(9, 3), 3)
+        self.assertEqual(calculator.fun5(-6, 2), -3)
+        self.assertEqual(calculator.fun5(5, -2), -2.5)
+
+    def test_fun5_divide_by_zero(self):
+        with self.assertRaises(ZeroDivisionError):
+            calculator.fun5(5, 0)
+
+    def test_fun6(self):
+        self.assertEqual(calculator.fun6(2, 10), 1024)
+        self.assertEqual(calculator.fun6(5, 0), 1)
+        self.assertEqual(calculator.fun6(-2, 3), -8)
+        self.assertEqual(calculator.fun6(4, 0.5), 2)
+
+    def test_invalid_input(self):
+        # every two-input function should reject a non-number
+        for func in [calculator.fun1, calculator.fun2, calculator.fun3,
+                     calculator.fun5, calculator.fun6]:
+            with self.subTest(func=func.__name__):
+                with self.assertRaises(ValueError):
+                    func("2", 3)
 
 
 
